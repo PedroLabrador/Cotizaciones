@@ -1,12 +1,51 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>Title</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="/static/style.css">
+	<title>Document</title>
 </head>
 <body>
-	{{texto}}
-	{% for q in quo %}
-	{{q.email}}
-
-	{% endfor %}
+	<main>
+		{% verbatim %}
+		<script type="text/x-template" id="grid-template">
+			<table>
+				<thead>
+					<tr>
+						<th v-for="key in columns"
+						@click="sortBy(key)"
+						:class="{ active: sortKey == key }">
+							{{ key | capitalize }}
+							<span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="entry in filteredData">
+						<td v-for="key in columns">
+							{{entry[key]}}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</script>
+		<div id="vueapp">
+			{{ getMessage() }}
+			<form id="search">
+				Search <input name="query" v-model="searchQuery">
+			</form>
+			<vue-grid
+				:data="gridData"
+				:columns="gridColumns"
+				:filter-key="searchQuery">
+			</vue-grid>
+		</div>
+		{% endverbatim %}
+	</main>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+	<script src="/static/run.js"></script>
 </body>
 </html>

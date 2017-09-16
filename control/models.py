@@ -11,6 +11,6 @@ class quotes(models.Model):
 	phone = models.CharField(max_length = 140)
 	email = models.CharField(max_length = 140)
 	type_info = models.CharField(max_length = 70)
-	details =models.TextField()
+	details = models.TextField()
 	def __unicode__(self):
 		return "%s - %s" % (self.id_number, self.name)
